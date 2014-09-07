@@ -8,7 +8,8 @@ canvas.onclick = function() {
   canvas.requestPointerLock();
 }
 
-var NUMBER_OF_COLLECTABLES = 20;
+var NUMBER_OF_COLLECTABLES = 80;
+var NUMBER_OF_TARGETS = 10;
 
 var engine = new BABYLON.Engine(canvas, true);
 engine.isPointerLock = true;
@@ -21,6 +22,9 @@ var collectables = [];
 var createScene = function () {
 
   var scene = new BABYLON.Scene(engine);
+
+  scene.targets = targets;
+  scene.collectables = collectables;
 
   camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -15), scene);
   camera.keysUp = [87]; // W
@@ -45,11 +49,13 @@ var createScene = function () {
 
   light.intensity = .5;
 
+  createSkyBox(scene);
+
   var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
 
   sphere.position.y = 1;
 
-  ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 2, scene, false);
+  ground = BABYLON.Mesh.CreateGround("ground1", 500, 500, 2, scene, false);
   var groundMaterial = new  BABYLON.StandardMaterial("ground", scene);
   groundMaterial.diffuseTexture = new BABYLON.Texture("assets/ground.jpg", scene);
   groundMaterial.diffuseTexture.uScale = 60;
@@ -58,14 +64,18 @@ var createScene = function () {
   ground.material = groundMaterial;
   ground.checkCollisions = true;
 
-  var target = new Target(scene);
-  target.setRandomXZ(ground);
-  target.setRandomVelocity(ground);
-  targets.push(target);
+  scene.ground = ground;
+  scene.height = 50;
 
+  for (var i=0; i < NUMBER_OF_TARGETS; i++) {
+    var target = new Target(scene);
+    target.setRandomXZ(ground);
+    target.setRandomVelocity(ground);
+    targets.push(target);
+  }
   for (var i=0; i < NUMBER_OF_COLLECTABLES; i++) {
     var collectable = new Collectable(scene);
-    collectable.setRandomPosition(ground, 30);
+    collectable.setRandomPosition(ground, scene.height);
     collectables.push(collectable);
   }
 
@@ -78,6 +88,8 @@ engine.runRenderLoop(function () {
   targets.map( function(target) {
     target.move(ground);
   });
+
+  player.update(scene);
 
   scene.render();
 });
