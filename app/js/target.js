@@ -18,8 +18,8 @@ Target.prototype.setRandomXZ = function (ground) {
 }
 
 Target.prototype.setRandomVelocity = function (ground) {
-  var x = (Math.random() * 0.1) + 0.01;
-  var z = (Math.random() * 0.1) + 0.01;
+  var x = (Math.random() * 0.1) + 0.1;
+  var z = (Math.random() * 0.1) + 0.1;
   this.velocity = new BABYLON.Vector3(x,0,z);
 }
 

@@ -35,8 +35,6 @@ var createScene = function () {
 
   player = new Player(scene, camera);
 
-  var crosshair = new Crosshair(scene, camera);
-
   var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(800, 600, 0), scene);
 
   sun.intensity = 0.7;
@@ -100,4 +98,12 @@ engine.runRenderLoop(function () {
 
 window.addEventListener("resize", function () {
   engine.resize();
+});
+
+window.addEventListener("click", function(event) {
+  var pickResult = scene.pick(event.clientX, event.clientY);
+});
+
+window.addEventListener("playerPointsChanged", function(event) {
+  document.getElementById("points").innerHTML = event.detail.currentPoints;
 });

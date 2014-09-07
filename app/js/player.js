@@ -16,7 +16,8 @@ Player.prototype.update = function(scene) {
   scene.collectables.forEach( function(collectable) {
     if (BABYLON.BoundingBox.Intersects(player.model.getBoundingInfo().boundingBox, collectable.boundingBox)) {
       collectable.setRandomPosition(scene.ground, scene.height);
-      player.points++;
+      player.points += 10;
+      window.dispatchEvent(new CustomEvent("playerPointsChanged", {"detail" :{'currentPoints': player.points}}));
     }
   });
 }
