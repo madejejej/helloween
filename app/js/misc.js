@@ -1,5 +1,5 @@
 function createSkyBox(scene) {
-  var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000, scene);
+  var skybox = BABYLON.Mesh.CreateBox("skyBox", 500, scene);
   var material = new BABYLON.StandardMaterial("skyBox", scene);
   material.backFaceCulling = false;
   skybox.material = material;

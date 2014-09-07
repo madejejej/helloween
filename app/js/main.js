@@ -37,7 +37,12 @@ var createScene = function () {
 
   var crosshair = new Crosshair(scene, camera);
 
-  var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
+  var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(800, 600, 0), scene);
+
+  sun.intensity = 0.7;
+
+  sun.diffuse = new BABYLON.Color3(0.32, 0.25, 0.65);
+  //sun.specular = new BABYLON.Color3(0.32, 0.25, 0.65);
 
   camera.setTarget(new BABYLON.Vector3(0, 5, 0));
 
@@ -45,9 +50,6 @@ var createScene = function () {
 
   camera.attachControl(canvas, false);
 
-  var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-
-  light.intensity = .5;
 
   createSkyBox(scene);
 
