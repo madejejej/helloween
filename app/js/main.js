@@ -42,7 +42,9 @@ var createScene = function () {
   sun.intensity = 0.7;
 
   sun.diffuse = new BABYLON.Color3(0.32, 0.25, 0.65);
-  //sun.specular = new BABYLON.Color3(0.32, 0.25, 0.65);
+  sun.specular = new BABYLON.Color3(0.2, 0.2, 0.2);
+
+  sun.exponent = 1000;
 
   camera.setTarget(new BABYLON.Vector3(0, 5, 0));
 
