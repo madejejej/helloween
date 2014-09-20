@@ -9,7 +9,7 @@ canvas.onclick = function() {
 }
 
 var NUMBER_OF_COLLECTABLES = 80;
-var NUMBER_OF_TARGETS = 10;
+var NUMBER_OF_TARGETS = 20;
 
 var engine = new BABYLON.Engine(canvas, true);
 engine.isPointerLock = true;
@@ -18,6 +18,7 @@ var camera;
 var player;
 var targets = [];
 var collectables = [];
+var fireballs = [];
 
 var createScene = function () {
 
@@ -25,6 +26,9 @@ var createScene = function () {
 
   scene.targets = targets;
   scene.collectables = collectables;
+
+  scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+  scene.fogDensity = 0.003;
 
   camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -15), scene);
   camera.keysUp = [87]; // W
@@ -54,6 +58,10 @@ var createScene = function () {
   createSkyBox(scene);
 
   var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+
+  var fireball = new Fireball(scene);
+  fireball.model.position.y = 4;
+  fireballs.push(fireball);
 
   sphere.position.y = 1;
 
@@ -91,6 +99,10 @@ engine.runRenderLoop(function () {
     target.move(ground);
   });
 
+  fireballs.map( function(fireball) {
+    fireball.update(BABYLON.Tools.GetDeltaTime());
+  });
+
   player.update(scene);
 
   scene.render();
@@ -101,7 +113,13 @@ window.addEventListener("resize", function () {
 });
 
 window.addEventListener("click", function(event) {
-  var pickResult = scene.pick(event.clientX, event.clientY);
+  var ray = scene.createPickingRay(window.innerWidth/2, window.innerHeight/2, BABYLON.Matrix.Identity(), camera);
+
+  var fireball = new Fireball(scene);
+  fireball.model.position = camera.position.clone();
+
+  fireball.velocity = ray.direction;
+  fireballs.push(fireball);
 });
 
 window.addEventListener("playerPointsChanged", function(event) {

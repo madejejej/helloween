@@ -1,10 +1,9 @@
 var Collectable = function(scene) {
   if (Collectable.spriteManager == undefined) {
     Collectable.spriteManager = new BABYLON.SpriteManager("potsManager", "assets/pot.png", 200, 128, scene);
-    Collectable._id = 1;
   }
 
-  this.sprite = new BABYLON.Sprite("pot" + Collectable._id, Collectable.spriteManager);
+  this.sprite = new BABYLON.Sprite("pot", Collectable.spriteManager);
   this.particles = new StarParticles(scene, new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(0,0,0));
 
   this.boundingBox = new BABYLON.BoundingBox(new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(128,128,128));

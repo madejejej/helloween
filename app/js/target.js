@@ -1,10 +1,5 @@
 var Target = function(scene) {
-  if ( typeof Target.counter == 'undefined' ) {
-    Target.counter = 0;
-  } else {
-    Target.counter++;
-  }
-  this.model = BABYLON.Mesh.CreateSphere("target" + Target.counter, 16, 2, scene);
+  this.model = BABYLON.Mesh.CreateSphere("target", 16, 2, scene);
 }
 
 Target.prototype.setRandomXZ = function (ground) {
