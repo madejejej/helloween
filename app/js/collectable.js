@@ -4,6 +4,7 @@ var Collectable = function(scene) {
   }
 
   this.sprite = new BABYLON.Sprite("pot", Collectable.spriteManager);
+  this.sprite.size = 2;
   this.particles = new StarParticles(scene, new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(0,0,0));
 
   this.boundingBox = new BABYLON.BoundingBox(new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(128,128,128));
@@ -28,8 +29,8 @@ Collectable.prototype.setRandomPosition = function(ground, maxHeight) {
 
 Collectable.prototype._updateParticlesPosition = function() {
   var quarterSize = this.sprite.size / 4;
-  var minEmitBox = this.sprite.position.subtractFromFloats(quarterSize, -quarterSize*8, quarterSize);
-  var maxEmitBox = this.sprite.position.subtractFromFloats(-quarterSize, -quarterSize*8, -quarterSize);
+  var minEmitBox = this.sprite.position.subtractFromFloats(quarterSize, -quarterSize*6, quarterSize);
+  var maxEmitBox = this.sprite.position.subtractFromFloats(-quarterSize, -quarterSize*6, -quarterSize);
 
   this.particles.updateEmitBox(minEmitBox, maxEmitBox);
 }

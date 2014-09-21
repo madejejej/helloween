@@ -1,5 +1,5 @@
 var Target = function(scene) {
-  this.model = BABYLON.Mesh.CreateSphere("target", 16, 2, scene);
+  this.model = BABYLON.Mesh.CreateSphere("target", 16, 6, scene);
 }
 
 Target.prototype.setRandomXZ = function (ground) {

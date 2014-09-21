@@ -19,6 +19,7 @@ var player;
 var targets = [];
 var collectables = [];
 var fireballs = [];
+var explosions = [];
 
 var createScene = function () {
 
@@ -58,10 +59,6 @@ var createScene = function () {
   createSkyBox(scene);
 
   var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-
-  var fireball = new Fireball(scene);
-  fireball.model.position.y = 4;
-  fireballs.push(fireball);
 
   sphere.position.y = 1;
 
@@ -103,6 +100,11 @@ engine.runRenderLoop(function () {
     fireball.update(BABYLON.Tools.GetDeltaTime());
   });
 
+  explosions.map( function(explosion) {
+    if (explosion.sprite.cellIndex > 43) {
+      explosion.dispose();
+    }
+  });
   player.update(scene);
 
   scene.render();
@@ -125,3 +127,5 @@ window.addEventListener("click", function(event) {
 window.addEventListener("playerPointsChanged", function(event) {
   document.getElementById("points").innerHTML = event.detail.currentPoints;
 });
+
+
