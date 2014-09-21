@@ -49,18 +49,11 @@ var createScene = function () {
 
   sun.exponent = 1000;
 
-  camera.setTarget(new BABYLON.Vector3(0, 5, 0));
-
   camera.angularSensibility = 3000;
 
   camera.attachControl(canvas, false);
 
-
   createSkyBox(scene);
-
-  var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-
-  sphere.position.y = 1;
 
   ground = BABYLON.Mesh.CreateGround("ground1", 500, 500, 2, scene, false);
   var groundMaterial = new  BABYLON.StandardMaterial("ground", scene);

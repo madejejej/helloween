@@ -36,6 +36,9 @@ Fireball.prototype.update = function(dt) {
     });
   }
 
+  if (this.time > 8) {
+    this.explode();
+  }
 }
 
 

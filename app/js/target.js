@@ -1,5 +1,6 @@
 var Target = function(scene) {
   this.model = BABYLON.Mesh.CreateSphere("target", 16, 6, scene);
+  this.model.checkCollisions = true;
 }
 
 Target.prototype.setRandomXZ = function (ground) {
